@@ -1,0 +1,65 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+#include <QKeyEvent>
+#include <QPushButton>
+#include <QPainter>
+#include <QTime>
+#include <QDebug> //用来 Debug
+#include <QMessageBox>//自定义消息提示框
+
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+
+public:
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+    void paintEvent(QPaintEvent *);
+    void keyPressEvent(QKeyEvent *event);
+
+    void PressUp();
+    void PressDown();
+    void PressLeft();
+    void PressRight();
+    void myRand();
+
+    QPushButton *button;
+    int s[6][6];
+    int score=0;
+    bool state;
+
+    struct Ns{
+        int i;
+        int j;
+    };
+
+
+public slots:
+    void slotStart();                 //槽函数
+
+private:
+    Ui::MainWindow *ui;
+};
+#endif // MAINWINDOW_H
+#include "mainwindow.h"
+
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+        //显示窗体
+    w.setFixedSize(320,480);        //设置窗体固定的长宽
+    w.setWindowTitle("2048");       //设置窗体名
+    w.show();
+    return a.exec();
+}
